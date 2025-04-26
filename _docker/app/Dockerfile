@@ -25,6 +25,7 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 RUN if [ -f package.json ]; then npm install; fi
+RUN pecl install redis && docker-php-ext-enable redis
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 

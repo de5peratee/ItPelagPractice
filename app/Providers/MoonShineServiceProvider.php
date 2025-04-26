@@ -12,6 +12,8 @@ use MoonShine\Laravel\DependencyInjection\MoonShineConfigurator;
 use App\MoonShine\Resources\MoonShineUserResource;
 use App\MoonShine\Resources\MoonShineUserRoleResource;
 use App\MoonShine\Resources\LeakyBucketResource;
+use App\MoonShine\Pages\LeakyBucketStatusPage;
+use App\MoonShine\Resources\RequestLogResource;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 MoonShineUserRoleResource::class,
                 LeakyBucketResource::class,
             ])
+
             ->pages([
                 ...$config->getPages(),
             ])

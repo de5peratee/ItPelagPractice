@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repositories\BucketRepository;
+use App\Repositories\BucketRepositoryInterface;
+use App\Services\StorageLoggerService;
+use App\Strategies\LeakStrategyInterface;
+use App\Strategies\TimeBasedLeakStrategy;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -9,9 +14,17 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register()
     {
-        //
+        $this->app->bind(BucketRepositoryInterface::class, function ($app) {
+            return new BucketRepository(
+                config('leaky_bucket'),
+                $app->make(StorageLoggerService::class)
+            );
+        });
+
+        $this->app->bind(LeakStrategyInterface::class, TimeBasedLeakStrategy::class);
+
     }
 
     /**

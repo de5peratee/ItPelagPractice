@@ -32,6 +32,7 @@ use MoonShine\UI\Components\{Breadcrumbs,
     When};
 use App\MoonShine\Resources\LeakyBucketResource;
 use MoonShine\MenuManager\MenuItem;
+use App\MoonShine\Resources\RequestLogResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -46,7 +47,7 @@ final class MoonShineLayout extends AppLayout
     {
         return [
             ...parent::menu(),
-            MenuItem::make('LeakyBuckets', LeakyBucketResource::class),
+            MenuItem::make('LeakyBucket', LeakyBucketResource::class),
         ];
     }
 

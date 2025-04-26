@@ -22,6 +22,6 @@ yarn-error.log
 /.vscode
 /.zed
 
-# Project exclude paths
+/storage/logs/*.log
 /storage/app/
 /storage/framework/
