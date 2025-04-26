@@ -26,7 +26,7 @@
                 <label class="slider-label" for="request-frequency">
                     Частота: <span id="frequency-value">1</span> запросов/сек
                 </label>
-                <input type="range" id="request-frequency" min="0.1" max="5" step="0.1" value="1">
+                <input type="range" id="request-frequency" min="1" max="32" step="1" value="1">
             </div>
         </div>
     </div>

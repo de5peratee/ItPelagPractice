@@ -8,7 +8,7 @@
 
 
 return [
-    'capacity' => 10,
+    'capacity' => 1000,
     'leak_rate' => 2,
-    'time_window' => 5,
+    'time_window' => 1,
 ];

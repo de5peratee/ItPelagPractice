@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Repositories\BucketRepository;
 use App\Repositories\BucketRepositoryInterface;
+use App\Services\LeakyBucketService;
 use App\Services\StorageLoggerService;
 use App\Strategies\LeakStrategyInterface;
 use App\Strategies\TimeBasedLeakStrategy;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Octane\Facades\Octane;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(BucketRepositoryInterface::class, function ($app) {
+        $this->app->singleton(BucketRepositoryInterface::class, function ($app) {
             return new BucketRepository(
                 config('leaky_bucket'),
                 $app->make(StorageLoggerService::class)
@@ -32,6 +34,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+
     }
 }

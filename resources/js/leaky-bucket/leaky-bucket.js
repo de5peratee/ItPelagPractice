@@ -57,11 +57,13 @@ const removeCircle = () => {
 
     const circle = circles[0];
     circle.classList.add('removing');
+    circle.classList.add('highlight'); // Добавляем подсветку при удалении
     circle.style.opacity = '0';
     setTimeout(() => {
         if (circle.parentNode) {
             elements.room.removeChild(circle);
         }
+        circle.classList.remove('highlight'); // Удаляем подсветку (хотя элемент уже удален)
         const remainingCircles = elements.room.querySelectorAll('.circle:not(.removing)');
         remainingCircles.forEach((c, i) => {
             const row = Math.floor(i / 10);
@@ -79,6 +81,7 @@ const highlightCircles = (leakRate) => {
     });
 };
 
+
 const syncCircles = (target, capacity, leakRate) => {
     const currentCircles = elements.room.querySelectorAll('.circle:not(.removing)').length;
     const newCount = Math.min(target, capacity);
@@ -94,7 +97,6 @@ const syncCircles = (target, capacity, leakRate) => {
     }
 
     updateRoomHeight(newCount);
-    highlightCircles(leakRate);
 };
 
 const updateBucketDisplay = (bucket) => {

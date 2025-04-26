@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Repositories\BucketRepositoryInterface;
 use App\Strategies\LeakStrategyInterface;
-use Carbon\Carbon;
 
 class LeakyBucketService
 {
@@ -38,5 +37,12 @@ class LeakyBucketService
         $bucket = $this->leakStrategy->apply($bucket);
         $this->repository->save($bucket);
         return $bucket;
+    }
+
+    public function leak(): void
+    {
+        $bucket = $this->repository->get();
+        $bucket = $this->leakStrategy->apply($bucket);
+        $this->repository->save($bucket);
     }
 }

@@ -71,7 +71,7 @@ h1 {
 }
 
 .circle.highlight {
-    background: #606060;
+    background: #ffffff;
     animation: subtle-blink 1.5s ease-in-out infinite alternate;
 }
 

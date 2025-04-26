@@ -11,7 +11,7 @@ class LeakyBucket extends Model
     protected $guarded = false;
 
     protected $casts = [
-        'last_checked' => 'datetime',
+        'last_leak_reset' => 'datetime',
     ];
 }
 

@@ -64,6 +64,7 @@ class BucketRepository implements BucketRepositoryInterface
             [
                 'requests' => $bucket['requests'],
                 'last_leak_reset' => Carbon::parse($bucket['last_leak_reset']),
+                'capacity' => $this->config['capacity'],
             ]
         );
 
@@ -75,12 +76,21 @@ class BucketRepository implements BucketRepositoryInterface
         try {
             $data = Redis::hgetall($this->key) ?: [];
             $this->logger->logRedisRead($this->key, $data);
-            return $data;
+
+            if (!empty($data)) {
+                return [
+                    'requests' => (int) ($data['requests'] ?? 0),
+                    'last_leak_reset' => $data['last_leak_reset'] ?? Carbon::now()->toDateTimeString(),
+                ];
+            }
+
+            return [];
         } catch (\Exception $e) {
             $this->logger->logRedisReadError($this->key, $e->getMessage());
             return [];
         }
     }
+
 
     private function saveToRedis(array $bucket): void
     {
