@@ -12,15 +12,11 @@ class LeakBucketCommand extends Command
 
     private LeakyBucketService $bucketService;
 
-    public function __construct(LeakyBucketService $bucketService)
-    {
-        parent::__construct();
-        $this->bucketService = $bucketService;
-    }
-
     public function handle()
     {
-        $this->bucketService->leak();
-        \Log::info('Bucket leaked at ' . now());
+        $bucketService = app(LeakyBucketService::class);
+        $bucketService->leak();
+        \Log::info('Ведро уменьшилось в ' . now());
     }
+
 }

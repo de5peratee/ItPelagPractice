@@ -20,9 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(BucketRepositoryInterface::class, function ($app) {
             return new BucketRepository(
-                config('leaky_bucket'),
-                $app->make(StorageLoggerService::class)
-            );
+                config('leaky_bucket'));
         });
 
         $this->app->bind(LeakStrategyInterface::class, TimeBasedLeakStrategy::class);

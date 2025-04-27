@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeakyBucket extends Model
 {
-
     protected $guarded = false;
-
     protected $casts = [
         'last_leak_reset' => 'datetime',
     ];

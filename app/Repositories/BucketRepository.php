@@ -11,19 +11,16 @@ class BucketRepository implements BucketRepositoryInterface
 {
     private string $key = 'leaky_bucket:1';
     private array $config;
-    private StorageLoggerService $logger;
 
-    public function __construct(array $config, StorageLoggerService $logger)
+    public function __construct(array $config)
     {
         $this->config = $config;
-        $this->logger = $logger;
     }
 
     public function get(): array
     {
         $redisBucket = $this->getRedisBucket();
         if ($redisBucket) {
-            $this->logger->logRedisRead($this->key, $redisBucket);
             return array_merge([
                 'capacity' => $this->config['capacity'],
                 'leak_rate' => $this->config['leak_rate'],
@@ -31,7 +28,6 @@ class BucketRepository implements BucketRepositoryInterface
             ], $redisBucket);
         }
 
-        $this->logger->logDatabaseRead(LeakyBucket::class, 'firstOrCreate');
         $dbBucket = LeakyBucket::firstOrCreate(
             ['id' => 1],
             [
@@ -55,10 +51,6 @@ class BucketRepository implements BucketRepositoryInterface
 
     public function save(array $bucket): void
     {
-        $this->logger->logDatabaseWrite(LeakyBucket::class, 'updateOrCreate', [
-            'requests' => $bucket['requests'],
-            'last_leak_reset' => $bucket['last_leak_reset'],
-        ]);
         LeakyBucket::updateOrCreate(
             ['id' => 1],
             [
@@ -75,7 +67,6 @@ class BucketRepository implements BucketRepositoryInterface
     {
         try {
             $data = Redis::hgetall($this->key) ?: [];
-            $this->logger->logRedisRead($this->key, $data);
 
             if (!empty($data)) {
                 return [
@@ -86,11 +77,9 @@ class BucketRepository implements BucketRepositoryInterface
 
             return [];
         } catch (\Exception $e) {
-            $this->logger->logRedisReadError($this->key, $e->getMessage());
             return [];
         }
     }
-
 
     private function saveToRedis(array $bucket): void
     {
@@ -100,12 +89,9 @@ class BucketRepository implements BucketRepositoryInterface
                 'last_leak_reset' => $bucket['last_leak_reset'],
             ]);
             Redis::expire($this->key, 3600);
-            $this->logger->logRedisWrite($this->key, [
-                'requests' => $bucket['requests'],
-                'last_leak_reset' => $bucket['last_leak_reset'],
-            ]);
         } catch (\Exception $e) {
-            $this->logger->logRedisWriteError($this->key, $e->getMessage());
+            \Log::error('Ошибка Redis: ' . $e->getMessage());
+
         }
     }
 }

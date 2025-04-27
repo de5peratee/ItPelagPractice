@@ -1,7 +1,7 @@
 body {
     font-family: "Gotham Medium", serif;
     background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 100%);
-    color: #ffffff;
+    color: #d1d1d6;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,64 +17,6 @@ h1 {
     color: #ffffff;
 }
 
-.container {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
-
-.bucket-info {
-    background: rgba(30, 30, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-    width: 300px;
-    backdrop-filter: blur(12px);
-}
-
-.bucket-info p {
-    margin: 10px 0;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.room-container {
-    position: relative;
-    width: 400px;
-    transition: height 0.5s ease;
-}
-
-.room {
-    position: relative;
-    width: 100%;
-    background: rgba(30, 30, 30, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    overflow: hidden;
-    padding-bottom: 20px;
-}
-
-.circle {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #000000;
-    border-radius: 50%;
-    transition: left 0.5s ease, top 0.5s ease, opacity 0.5s ease;
-}
-
-.circle.removing {
-    opacity: 0;
-}
-
-.circle.highlight {
-    background: #ffffff;
-    animation: subtle-blink 1.5s ease-in-out infinite alternate;
-}
-
 @keyframes subtle-blink {
     from { opacity: 0.6; }
     to { opacity: 0.8; }
@@ -87,7 +29,10 @@ h1 {
     margin: 20px 0;
 }
 
-button {
+a {
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
     font-family: inherit;
     padding: 12px 24px;
     background: rgba(60, 60, 60, 0.7);
@@ -98,32 +43,26 @@ button {
     font-weight: 500;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin: 10px 0;
     min-width: 300px;
     backdrop-filter: blur(12px);
 }
 
-button:hover {
+a:hover {
     background: rgba(80, 80, 80, 0.7);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
-button:active {
+a:active {
     background: rgba(50, 50, 50, 0.7);
     transform: translateY(0);
     box-shadow: none;
 }
 
-button.active {
+a.active {
     background: rgba(100, 100, 100, 0.7);
 }
 
-.slider-container {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-}
 
 input[type="range"] {
     -webkit-appearance: none;
@@ -152,17 +91,4 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-}
-
-.slider-label {
-    font-size: 14px;
-    color: #d1d1d6;
-}
-
-a {
-    position: relative;
-    font-size: small;
-    text-decoration: none;
-    color: #b4b4b4;
-    padding-bottom: 20px;
 }

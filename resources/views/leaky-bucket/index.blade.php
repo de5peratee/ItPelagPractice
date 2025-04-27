@@ -14,6 +14,7 @@
 <body>
 <div class="container">
     <div class="bucket-info">
+        <a href="{{ route('main-menu.index') }}">Вернуться</a>
         <h3>Leaky Bucket Алгоритм</h3>
         <p>Ведро: <span id="requests">0</span>/<span id="capacity">0</span></p>
         <p>Скорость утечки: <span id="leak_rate">0</span> запросов/окно</p>
